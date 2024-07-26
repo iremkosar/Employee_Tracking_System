@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        manzara: "url('../src/assets/img/manzara.jpg')",
+      },
+    },
   },
   plugins: [],
-}
-
+};
