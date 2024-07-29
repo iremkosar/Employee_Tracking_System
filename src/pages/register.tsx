@@ -1,4 +1,5 @@
 import React , {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 const Register: React.FC = () => {
     const [firstName, setFirstName] = useState<string>('');
@@ -86,7 +87,7 @@ const Register: React.FC = () => {
             type="submit"
             className="w-full px-4 py-2 text-black bg-white rounded-3xl hover:bg-fuchsia-400 focus:outline-none focus:bg-blue-700"
           >
-            Login
+            <Link to="/ActivationCode" className="text-black hover:font-extrabold font-bold hover:text-black">Register</Link>
           </button>
         </form>
       </div>
