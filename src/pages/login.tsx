@@ -1,17 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate(); 
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const payload = {
+      email: email,
+      password: password
+    };
+
+    try {
+      const res = await axios.post('http://localhost:8088/api/v1/auth/authenticate', payload);
+      localStorage.setItem('token',res?.data?.token)
+      navigate('/'); 
+    } catch (error) {
+      console.error('There was an error submitting the form!', error);
+    }
+  };
+
+  
   return (
     <div className="flex items-center justify-center min-h-screen w-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('../src/assets/img/manzara.jpg')" }}>
       <div className="w-full max-w-sm p-8 space-y-6 backdrop-blur-md  rounded shadow-md">
         <h2 className="text-3xl font-bold text-center text-white ">Login</h2>
-        <form className="space-y-4">
+        <form onSubmit={(e)=>handleSubmit(e)} className="space-y-4">
         <div className="relative flex items-center">
             {/* username==mail  */}
       <input
         placeholder="Mail"
-        type="text"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         id="mail"
         className="backdrop-blur-md w-full p-2 pr-10 mt-1 border rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
@@ -34,6 +59,8 @@ const Login: React.FC = () => {
       <input
         placeholder="Password"
         type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         id="password"
         className="backdrop-blur-md w-full p-2 pr-10 mt-1 border rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500"
       />

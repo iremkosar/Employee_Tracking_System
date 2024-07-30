@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = useState<string>('');
@@ -9,7 +11,7 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const navigate = useNavigate(); // navigate hook'u ile sayfa yönlendirme
+  const navigation = useNavigate(); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,20 +26,13 @@ const Register: React.FC = () => {
 
     try {
       await axios.post('http://localhost:8088/api/v1/auth/register', payload);
-      handleClear();
-      navigate('/ActivationCode'); 
+      navigation('/ActivationCode'); 
     } catch (error) {
       console.error('There was an error submitting the form!', error);
     }
   };
 
-  const handleClear = () => {
-    setFirstName('');
-    setLastName('');
-    setBirthday('');
-    setEmail('');
-    setPassword('');
-  };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen w-full bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('../src/assets/img/manzara.jpg')" }}>
@@ -103,8 +98,9 @@ const Register: React.FC = () => {
             type="submit"
             className="w-full px-4 py-2 text-black bg-white rounded-3xl hover:bg-fuchsia-400 focus:outline-none focus:bg-blue-700"
           >
-            Register
+            <Link to="/ActivationCode">Register</Link>
           </button>
+          
         </form>
       </div>
     </div>
