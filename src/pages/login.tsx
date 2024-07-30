@@ -7,13 +7,12 @@ const Login: React.FC = () => {
       <div className="w-full max-w-sm p-8 space-y-6 backdrop-blur-md  rounded shadow-md">
         <h2 className="text-3xl font-bold text-center text-white ">Login</h2>
         <form className="space-y-4">
-
         <div className="relative flex items-center">
             {/* username==mail  */}
       <input
-        placeholder="Username"
+        placeholder="Mail"
         type="text"
-        id="username"
+        id="mail"
         className="backdrop-blur-md w-full p-2 pr-10 mt-1 border rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <svg
