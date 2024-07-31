@@ -1,33 +1,16 @@
-import { jwtDecode } from 'jwt-decode';
 import React from 'react';
-
-interface JwtPayload {
-  fullName: string;
-}
+import Header from '../components/header';
+import Sidebar from '../components/sidebar';
+import MainContent from '../components/MainContent';
 
 const MainLayout: React.FC = () => {
-  const userToken = localStorage.getItem('token');
-
-  if (!userToken) {
-    return <div>Lütfen giriş yapın.</div>;
-  }
-
-  let fullName = '';
-
-  try {
-    const data: JwtPayload = jwtDecode<JwtPayload>(userToken);
-    fullName = data.fullName;
-  } catch (error) {
-    console.error('Token decoding error:', error);
-    return <div>Geçersiz token.</div>;
-  }
-   
   return (
-    <div className="min-h-screen bg-slate-500">
-      <h1>Hoş geldiniz {fullName}</h1>
-     
-      
-      <div className='text-white text-center flex justify-center bg-slate-500 w-full min-h-screen'>HOME PAGE</div>
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <MainContent />
+      </div>
     </div>
   );
 };
