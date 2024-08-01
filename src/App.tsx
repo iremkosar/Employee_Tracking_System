@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './pages/login'
-import Register from './pages/register'
+import Login from './pages/login';
+import Register from './pages/register';
 import ActivationCode from "./pages/ActivationCode";
 import MainLayouts from "./layouts/MainLayouts";
 import EmployeePage from './pages/employeepage';
+import EmployeeLayouts from "./layouts/employeeLayouts"; // Düzeltme burada
 
-
-import './App.css'
+import './App.css';
 
 function App() {
   return (
@@ -17,9 +17,10 @@ function App() {
         <Route path="/ActivationCode" element={<ActivationCode />} />
         <Route path="/EmployeePage" element={<EmployeePage />} />
         <Route path="/" element={<MainLayouts />} />
+        <Route path="/employeeLayouts" element={<EmployeeLayouts />} /> {/* Düzeltme burada */}
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

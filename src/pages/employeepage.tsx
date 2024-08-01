@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Employee {
   userUUID: string;
@@ -15,16 +16,14 @@ const EmployeePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8088/api/v1/employees')
+    axios.get('http://localhost:8088/api/v1/employees',{
+      headers:{
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data); 
-        setEmployees(data);
+        console.log(response.data);
+        setEmployees(response.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -53,4 +52,3 @@ const EmployeePage: React.FC = () => {
 };
 
 export default EmployeePage;
-
