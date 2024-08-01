@@ -6,7 +6,7 @@ import EmployeePage from '../pages/employeepage';
 
 const employeeLayouts: React.FC = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-200">
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
