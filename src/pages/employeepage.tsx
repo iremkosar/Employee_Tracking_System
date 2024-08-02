@@ -19,7 +19,7 @@ const EmployeePage: React.FC = () => {
   useEffect(() => {
     axios.get('http://localhost:8088/api/v1/employees', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     })
       .then(response => {
@@ -42,14 +42,16 @@ const EmployeePage: React.FC = () => {
 
   }, [selectedEmployee]);
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Formun varsayılan gönderimini engelle
     if (selectedEmployee === null) return;
 
     EmployeeApis.EmployeeDelete(selectedEmployee)
       .then(() => {
+        // Silinen çalışanı listeden kaldır
         setEmployees(employees.filter(employee => employee.userUUID !== selectedEmployee));
-        setEmployeeDetail(null); 
-        setSelectedEmployee(null); 
+        setEmployeeDetail(null); // Detayları temizle
+        setSelectedEmployee(null); // Seçilen çalışanı sıfırla
       })
       .catch(error => {
         setError(`Error deleting data: ${error.message}`);
@@ -76,6 +78,8 @@ const EmployeePage: React.FC = () => {
           ))}
         </ul>
       </div>
+
+      
 
       <div className="w-full max-w-md h-[90vh] overflow-y-auto p-4 border border-gray-300 rounded-lg shadow-lg bg-white ml-4">
         <h2 className="text-xl font-bold mb-4">Employee Details</h2>
@@ -122,19 +126,13 @@ const EmployeePage: React.FC = () => {
               />
             </div>
             <div className='flex flex-row justify-center gap-4'>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-                Update
-              </button>
               <button
                 onClick={handleDelete}
                 className='bg-red-500 text-white p-2 rounded'
                 type='button'
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                 </svg>
                 Delete
               </button>
